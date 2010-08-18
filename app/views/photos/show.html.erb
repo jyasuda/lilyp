@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Image url:</b>
+  <%= @photo.image_url %>
+</p>
+
+<p>
+  <b>Source:</b>
+  <%= @photo.source %>
+</p>
+
+<p>
+  <b>Sort:</b>
+  <%= @photo.sort %>
+</p>
+
+
+<%= link_to 'Edit', edit_photo_path(@photo) %> |
+<%= link_to 'Back', photos_path %>

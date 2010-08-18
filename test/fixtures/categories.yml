@@ -1,0 +1,26 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: Blouses
+  singular_name: Blouse
+  urlname: blouses
+
+two:
+  name: Skirts
+  singular_name: Skirt
+  urlname: skirts
+
+three:
+  name: Scarves
+  singular_name: Scarf
+  urlname: scarves
+
+four:
+  name: Bags
+  singular_name: Bag
+  urlname: bags
+
+five:
+  name: Dresses
+  singular_name: Dress
+  urlname: dresses

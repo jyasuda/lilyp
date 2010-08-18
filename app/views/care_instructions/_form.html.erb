@@ -1,0 +1,21 @@
+<%= form_for(@care_instruction) do |f| %>
+  <% if @care_instruction.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@care_instruction.errors.count, "error") %> prohibited this care_instruction from being saved:</h2>
+
+      <ul>
+      <% @care_instruction.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

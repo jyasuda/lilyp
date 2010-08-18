@@ -1,0 +1,21 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: Umi
+  urlname: umi
+
+two:
+  name: Sora
+  urlname: sora
+
+three:
+  name: Haru
+  urlname: haru
+
+four:
+  name: Mori
+  urlname: mori
+
+five:
+  name: Yuki
+  urlname: yuki

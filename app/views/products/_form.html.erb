@@ -1,0 +1,71 @@
+<%= form_for(@product, :html => { :multipart => true }) do |f| %>
+  <% if @product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+      <ul>
+        <% @product.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%#*<div class="field">%>
+  <%#= f.label :name %><br />
+  <%#= f.text_field :name %>
+  <%#*</div>%>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= f.label :startDate %><br />
+    <%= f.date_select :startDate %>
+  </div>
+  <div class="field">
+    <%= f.label :size %><br />
+    <%= collection_select :product, :size_id , Size.all, :id, :name %><br />
+  </div>
+  <div class="field">
+    <%= f.label :price %><br />
+    <%= f.text_field :price %>
+  </div>
+  <div class="field">
+    <%= f.label :style %><br />
+    <%= collection_select :product, :style_id , Style.all, :id, :name %><br />
+  </div>
+  <div class="field">
+    <%= f.label :category %><br />
+    <%= collection_select :product, :category_ids , Category.all, :id, :name %><br />
+  </div>
+  <div class="field">
+    <%= f.label :construction %><br />
+    <%= select_tag 'product[construction_ids][]',
+      options_from_collection_for_select(Construction.all, :id, :description,
+      @product.constructions.collect{|construction| construction.id}),
+      { :multiple => true, :size => 5 }
+  %>
+  </div>
+  <div class="field">
+    <% f.fields_for :photos do |builder| %>
+
+      <% if builder.object.new_record? %>
+
+        <%#*<p>%>
+          <%#= builder.label :caption, "Image Caption" %>
+          <%#= builder.text_field :caption %>
+        <%#*</p>%>
+
+        <p>
+          <%= builder.label :image, "Image File" %>
+          <%= builder.file_field :image %>
+        </p>
+
+      <% end %>
+    <% end %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

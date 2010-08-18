@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: New
+  urlname: new
+
+two:
+  name: Popular
+  urlname: popular
+
+three:
+  name: Featured
+  urlname: featured
+
+four:
+  name: Sale
+  urlname: sale

@@ -1,0 +1,23 @@
+<h1>Listing constructions</h1>
+
+<table>
+  <tr>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @constructions.each do |construction| %>
+  <tr>
+    <td><%= construction.description %></td>
+    <td><%= link_to 'Show', construction %></td>
+    <td><%= link_to 'Edit', edit_construction_path(construction) %></td>
+    <td><%= link_to 'Destroy', construction, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Construction', new_construction_path %>

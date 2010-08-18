@@ -1,0 +1,16 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  description: No pockets
+
+two:
+  description: Double stitched
+
+three:
+  description: 1 front pocket
+
+four:
+  description: 1 back pocket
+
+five:
+  description: Silk lining

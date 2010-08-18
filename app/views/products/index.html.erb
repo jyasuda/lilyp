@@ -1,0 +1,44 @@
+<h1>Listing products</h1>
+<%= page_entries_info @products %>
+
+<table id="product_listing_table">
+  <tr>
+    <th>Photos</th>
+    <th><a href="?sort_by=size">Name</a></th>
+    <th>Category</th>
+    <th>Description</th>
+    <th>Construction</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+
+  <% @products.each do |product| %>
+    <tr class="<%= cycle('list-line-odd', 'list-line-even') %>" >
+      <td>  <% for photo in product.photos %>
+
+          <a href="<%= photo.image.url(:original) %>" class="cloud-zoom" id='zoom1'
+             rel="adjustX: 10, adjustY:-100, zoomWidth:598, zoomHeight:899">
+            <%= image_tag photo.image.url(:thumb), :alt => photo.image.url(:thumb) %></a>
+        <% end %></td>
+      <td><%= product.name %></td>
+      <td><%= product.primaryCategoryName %><br />
+        <%= Size.find(product.size_id).name %><br />
+        <%= number_to_currency(product.price) %></td>
+      <td><%= product.description %></td>
+      <td><ul>
+          <% for construction in product.constructions %>
+            <li><%= construction.description %></li>
+          <% end %>
+        </ul></td>
+      <td><%= link_to 'Show', product %></td>
+      <td><%= link_to 'Edit', edit_product_path(product) %></td>
+      <td><%= link_to 'Destroy', product, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= will_paginate @products, :class => "flickr_pagination" %>
+<br />
+<%= link_to 'New Product', new_product_path %>

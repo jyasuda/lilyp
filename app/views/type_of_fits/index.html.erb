@@ -1,0 +1,23 @@
+<h1>Listing type_of_fits</h1>
+
+<table>
+  <tr>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @type_of_fits.each do |type_of_fit| %>
+  <tr>
+    <td><%= type_of_fit.description %></td>
+    <td><%= link_to 'Show', type_of_fit %></td>
+    <td><%= link_to 'Edit', edit_type_of_fit_path(type_of_fit) %></td>
+    <td><%= link_to 'Destroy', type_of_fit, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Type of fit', new_type_of_fit_path %>

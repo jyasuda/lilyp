@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  description: Dry Clean Only
+
+two:
+  description: Very light iron
+
+

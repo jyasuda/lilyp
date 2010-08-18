@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @product.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @product.description %>
+</p>
+
+<p>
+  <b>Startdate:</b>
+  <%= @product.startDate %>
+</p>
+
+<p>
+  <b>Size:</b>
+  <%= Size.find(@product.size_id).name %>
+</p>
+
+<p>
+  <b>Price:</b>
+  <%= @product.price %>
+</p>
+
+<p>
+  <b>Style:</b>
+  <%= Style.find(@product.style_id).name %><br />
+</p>
+<p>
+  <b>Category:</b>
+<ul>
+  <% for category in @product.categories %>
+    <li><%= category.name %></li>
+  <% end %>
+</ul>
+</p>
+<p>
+  <b>Construction:</b>
+<ul>
+  <% for construction in @product.constructions %>
+    <li><%= construction.description %></li>
+  <% end %>
+</ul>
+</p>
+<p>
+  <b>Photos:</b>
+  <% for photo in @product.photos %>
+    <%= image_tag photo.image.url(:original) %>
+    <%= image_tag photo.image.url(:medium) %>
+    <%= image_tag photo.image.url(:small) %>
+    <%= image_tag photo.image.url(:thumb) %>
+  <% end %>
+</p>
+
+<%= link_to 'Edit', edit_product_path(@product) %> |
+<%= link_to 'Back', products_path %>

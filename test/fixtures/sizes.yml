@@ -1,0 +1,25 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: Extra Small
+  urlname: extra_small
+
+two:
+  name: Small
+  urlname: small
+
+three:
+  name: Medium
+  urlname: medium
+
+four:
+  name: Large
+  urlname: large
+
+five:
+  name: Extra Large
+  urlname: extra_large
+
+six:
+  name: One size fits all
+  urlname: one_size_fits_all
