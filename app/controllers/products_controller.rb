@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
   # handle all product URLs here first, and route over to other actions after parsing
   def products_router
+    # first, create a hash that captures the filter parameters specified on the URL
     filterParams = params["other"].split(/\//)
     numParams = filterParams.length
     logger.info(filterParams)
