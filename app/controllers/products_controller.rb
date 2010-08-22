@@ -1,13 +1,15 @@
 class ProductsController < ApplicationController
   # handle all product URLs here first, and route over to other actions after parsing
+  $filters = Hash.new
+
   def products_router
     # first, create a hash that captures the filter parameters specified on the URL
     filterParams = params["other"].split(/\//)
     numParams = filterParams.length
-    logger.info(filterParams)
+    #    logger.info(filterParams)
     showListings = "true"
-    filter = Hash.new
-    
+
+    # if numParams == 0, this route will not be called, so we can assume there is at least one filterParam
     # need to check to see if there are any matches across Groupings, Categories, Size, Style, Price Range
     i = 0
     loop {
@@ -15,27 +17,83 @@ class ProductsController < ApplicationController
       i += 1
       if (i == 1) then
         if Grouping.find_by_urlname(param) then
-          filter[:grouping] = Grouping.find_by_urlname(param)
+          $filters[:grouping] = Grouping.find_by_urlname(param)
         elsif Category.find_by_urlname(param)
-          filter[:primaryCategory_id] = Category.find_by_urlname(param)
+          $filters[:primaryCategory_id] = Category.find_by_urlname(param)
         elsif Size.find_by_urlname(param)
-          filter[:size_id] = Size.find_by_urlname(param)
+          $filters[:size_id] = Size.find_by_urlname(param)
         elsif Style.find_by_urlname(param)
-          filter[:style_id] = Style.find_by_urlname(param)
+          $filters[:style_id] = Style.find_by_urlname(param)
         else
           prices = param.split(/-/)
           if (prices[0] == "dollars")
-            filter = {:price => prices[1]..prices[2] }
-          else if (param == "all")
-              filter = ""
-            else
-              showListings = "false"
-            end
+            $filters[:price] = prices[1]..prices[2]
+          elsif (param == "all")
+            # do nothing
+          else
+            showListings = "false"
           end
         end
+      elsif (i == 2) then
+        if Category.find_by_urlname(param)
+          $filters[:primaryCategory_id] = Category.find_by_urlname(param)
+        elsif Size.find_by_urlname(param)
+          $filters[:size_id] = Size.find_by_urlname(param)
+        elsif Style.find_by_urlname(param)
+          $filters[:style_id] = Style.find_by_urlname(param)
+        else
+          prices = param.split(/-/)
+          if (prices[0] == "dollars")
+            $filters[:price] = prices[1]..prices[2]
+          elsif (param == "all")
+            # do nothing
+          else
+            showListings = "false"
+          end
+        end
+      elsif (i == 3) then
+        if Size.find_by_urlname(param)
+          $filters[:size_id] = Size.find_by_urlname(param)
+        elsif Style.find_by_urlname(param)
+          $filters[:style_id] = Style.find_by_urlname(param)
+        else
+          prices = param.split(/-/)
+          if (prices[0] == "dollars")
+            $filters[:price] = prices[1]..prices[2]
+          elsif (param == "all")
+            # do nothing
+          else
+            showListings = "false"
+          end
+        end
+      elsif (i == 4) then
+        if Style.find_by_urlname(param)
+          $filters[:style_id] = Style.find_by_urlname(param)
+        else
+          prices = param.split(/-/)
+          if (prices[0] == "dollars")
+            $filters[:price] = prices[1]..prices[2]
+          elsif (param == "all")
+            # do nothing
+          else
+            showListings = "false"
+          end
+        end
+      elsif (i == 5) then
+        prices = param.split(/-/)
+        if (prices[0] == "dollars")
+            $filters[:price] = prices[1]..prices[2]
+          elsif (param == "all")
+            # do nothing
+        else
+          showListings = "false"
+        end
       end
+
       break if (i >= numParams)
     }
+    $filters.each { |k,v| logger.info("#{k} => #{v}") }
+
     if (showListings == "true")
       # create filter hash to hold filtering parameters to pass into search query
       # can filter on: attributes, category, size, price, style
@@ -51,7 +109,7 @@ class ProductsController < ApplicationController
       #      if params[:primaryCategory_id] then filter[:primaryCategory_id] = params[:primaryCategory_id] end
       #      if params[:style_id] then filter[:style_id] = params[:style_id] end
       @products = Product.paginate :page => params[:page], :order => 'created_at DESC',
-        :conditions => filter
+        :conditions => $filters
 
       respond_to do |format|
         format.html { render :index }
